@@ -17,7 +17,7 @@ import {
   ProgressBar,
 } from 'react-bootstrap';
 import Navbar, {Brand} from 'react-bootstrap/lib/Navbar';
-import history from 'history';
+import history from '../history';
 import $ from "jquery";
 import Sidebar from '../Sidebar';
 import { connect } from 'react-redux'
@@ -50,11 +50,11 @@ class Header extends React.Component{
       </NavDropdown>
     ) : (
     <NavDropdown title={<i className="fa fa-user fa-fw"></i> } id = 'navDropdown4'>
-      <MenuItem eventKey = "5" onClick={history.push('/login')}>
+      <MenuItem eventKey = "5" href="/login">
         <span> <i className = "fa fa-sign-in fa-fw" /> Log In </span>
       </MenuItem>
-      <MenuItem eventKey = "6" onClick={history.push('/signup')}>
-        <span> <i className = "fa fa-user-plus fa-fw" /> Sign Up </span>
+      <MenuItem eventKey = "6" href="/signup">
+        <span> <i className = "fa fa-user fa-fw" /> Sign Up </span>
       </MenuItem>
       </NavDropdown>
     );
