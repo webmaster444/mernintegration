@@ -3498,16 +3498,11 @@ function Header() {
         _react2.default.createElement(
           'span',
           null,
-          _react2.default.createElement('img', { src: '/logo.png', alt: 'Start React', title: 'Start React' }),
+          _react2.default.createElement('img', { src: 'images/logo.png', alt: 'Start React', title: 'Start React' }),
           _react2.default.createElement(
             'span',
             null,
-            '\xA0SB Admin React - '
-          ),
-          _react2.default.createElement(
-            'a',
-            { href: 'http://startreact.com/', title: 'Start React', rel: 'home' },
-            'StartReact.com'
+            '\xA0React Project Name '
           ),
           _react2.default.createElement(
             'button',
