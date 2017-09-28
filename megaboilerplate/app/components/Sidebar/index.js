@@ -17,7 +17,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="navbar-default sidebar" style={{ marginLeft: '-20px' }} role="navigation">
+      <div className="navbar-default sidebar" style={{ marginLeft: '-16px' }} role="navigation">
         <div className="sidebar-nav navbar-collapse collapse">
           <ul className="nav in" id="side-menu">
             <li className="sidebar-search">

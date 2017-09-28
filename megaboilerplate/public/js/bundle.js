@@ -4908,7 +4908,7 @@ var Sidebar = function (_get__2) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'navbar-default sidebar', style: { marginLeft: '-20px' }, role: 'navigation' },
+        { className: 'navbar-default sidebar', style: { marginLeft: '-16px' }, role: 'navigation' },
         _react2.default.createElement(
           'div',
           { className: 'sidebar-nav navbar-collapse collapse' },
