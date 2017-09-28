@@ -28,7 +28,7 @@ export default function getRoutes(store) {
   };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Home} onLeave={clearMessages}/>
+      <IndexRoute component={Home} onLeave={clearMessages}/>      
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>

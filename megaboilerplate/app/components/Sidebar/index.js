@@ -32,7 +32,7 @@ class Sidebar extends Component {
             </li>
 
             <li>
-              <a href="" onClick={(e) => { e.preventDefault(); history.push('/'); }} >
+              <a href="" onClick={(e) => { e.preventDefault();}} >
                 <i className="fa fa-dashboard fa-fw" /> &nbsp;Dashboard
               </a>
             </li>
@@ -58,14 +58,14 @@ class Sidebar extends Component {
               }
               >
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/flotcharts'); }} >
+                  <a href="#" onClick={(e) => { e.preventDefault();}} >
                     FlotCharts
                   </a>
                 </li>
                 <li>
                   <a
-                    href=""
-                    onClick={(e) => { e.preventDefault(); history.push('/morrisjscharts'); }}
+                    href="#"
+                    onClick={(e) => { e.preventDefault();}}
                   >
                     Morrisjs Charts
                   </a>
@@ -75,13 +75,13 @@ class Sidebar extends Component {
 
 
             <li>
-              <a href="" onClick={(e) => { e.preventDefault(); history.push('/table'); }} >
+              <a href="" onClick={(e) => { e.preventDefault();}} >
                 <i className="fa fa-table fa-fw" /> &nbsp;Tables
               </a>
             </li>
 
             <li>
-              <a href="" onClick={(e) => { e.preventDefault(); history.push('/forms'); }} >
+              <a href="" onClick={(e) => { e.preventDefault();}} >
                 <i className="fa fa-table fa-fw" /> &nbsp;Forms
               </a>
             </li>
@@ -105,35 +105,35 @@ class Sidebar extends Component {
                 })}
               >
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/panelwells'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Panels And Wells
                   </a>
                 </li>
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/button'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Buttons
                   </a>
                 </li>
                 <li>
                   <a
                     href=""
-                    onClick={(e) => { e.preventDefault(); history.push('/notification'); }}
+                    onClick={(e) => { e.preventDefault();}}
                   >
                     Notification
                   </a>
                 </li>
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/typography'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Typography
                   </a>
                 </li>
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/icons'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Icons
                   </a>
                 </li>
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/grid'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Grid
                   </a>
                 </li>
@@ -227,12 +227,12 @@ class Sidebar extends Component {
                   })}
               >
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/blank'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Blank
                   </a>
                 </li>
                 <li>
-                  <a href="" onClick={(e) => { e.preventDefault(); history.push('/login'); }} >
+                  <a href="" onClick={(e) => { e.preventDefault();}} >
                     Login
                   </a>
                 </li>

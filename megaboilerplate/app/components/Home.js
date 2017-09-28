@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Messages from './Messages';
+import Header from './Header/Header';
+import Footer from './Footer';
 
 class Home extends React.Component {
   render() {
-    return (
-      <div className="container-fluid">
+    return (      
+      <div>      
+      <Header />
+      <div id="page-wrapper" className="page-wrapper">
         <Messages messages={this.props.messages}/>
         <div className="row">
           <div className="col-sm-4">
@@ -41,6 +45,8 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
+        </div>
+        <Footer />
         </div>
       </div>
     );

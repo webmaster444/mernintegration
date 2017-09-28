@@ -20,10 +20,44 @@ import Navbar, {Brand} from 'react-bootstrap/lib/Navbar';
 import history from 'history';
 import $ from "jquery";
 import Sidebar from '../Sidebar';
+import { connect } from 'react-redux'
+import { logout } from '../../actions/auth';
 
 // const logo = require('./logo.png');
 
-function Header() {
+class Header extends React.Component{
+  handleLogout(event) {
+    event.preventDefault();
+    this.props.dispatch(logout());
+  }
+  render() {
+    const rightNav = this.props.token ? (
+      <NavDropdown title={<i className="fa fa-user fa-fw"></i> } id = 'navDropdown4'>
+      <MenuItem eventKey="1">
+        <span> <i className="fa fa-user fa-fw"></i> User Profile </span>
+      </MenuItem>
+      <MenuItem eventKey="2">
+        <span><i className="fa fa-gear fa-fw"></i> Settings </span>
+      </MenuItem>
+      <MenuItem divider />
+      <MenuItem eventKey = "3" href = 'http://www.strapui.com' >
+        <span> <i className = "fa fa-eye fa-fw" /> Premium React Themes </span>
+      </MenuItem>
+      <MenuItem divider />
+      <MenuItem eventKey = "4" onClick={this.handleLogout.bind(this)}>
+        <span> <i className = "fa fa-sign-out fa-fw" /> Logout </span>
+      </MenuItem>
+      </NavDropdown>
+    ) : (
+    <NavDropdown title={<i className="fa fa-user fa-fw"></i> } id = 'navDropdown4'>
+      <MenuItem eventKey = "5" onClick={history.push('/login')}>
+        <span> <i className = "fa fa-sign-in fa-fw" /> Log In </span>
+      </MenuItem>
+      <MenuItem eventKey = "6" onClick={history.push('/signup')}>
+        <span> <i className = "fa fa-user-plus fa-fw" /> Sign Up </span>
+      </MenuItem>
+      </NavDropdown>
+    );
   return (
     <div id="wrapper" className="content">
       <Navbar fluid={true}  style={ {margin: 0} }>
@@ -130,28 +164,15 @@ function Header() {
                   </MenuItem>
                 </NavDropdown>
 
-           <NavDropdown title={<i className="fa fa-user fa-fw"></i> } id = 'navDropdown4'>
-                  <MenuItem eventKey="1">
-                    <span> <i className="fa fa-user fa-fw"></i> User Profile </span>
-                  </MenuItem>
-                  <MenuItem eventKey="2">
-                    <span><i className="fa fa-gear fa-fw"></i> Settings </span>
-                  </MenuItem>
-                  <MenuItem divider />
-                  <MenuItem eventKey = "3" href = 'http://www.strapui.com' >
-                    <span> <i className = "fa fa-eye fa-fw" /> Premium React Themes </span>
-                  </MenuItem>
-                  <MenuItem divider />
-                  <MenuItem eventKey = "4" onClick = {(event) => { history.push('/login');}}>
-                    <span> <i className = "fa fa-sign-out fa-fw" /> Logout </span>
-                  </MenuItem>
-            </NavDropdown>
+           
+                  {rightNav}
+            
 
           </ul>
           <Sidebar />
     </Navbar>
     </div>
-  );
+  );}
 }
 function toggleMenu(){
     if($(".navbar-collapse").hasClass('collapse')){
@@ -162,4 +183,13 @@ function toggleMenu(){
     }
   }
 
-export default Header;
+// export default Header;
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps)(Header);

@@ -2686,14 +2686,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Header = require('./Header/Header');
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _Footer = require('./Footer');
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2714,16 +2706,10 @@ var App = function (_get__$Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      var _Header_Component = _get__('Header');
-
-      var _Footer_Component = _get__('Footer');
-
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Header_Component, null),
-        this.props.children,
-        _react2.default.createElement(_Footer_Component, null)
+        this.props.children
       );
     }
   }]);
@@ -2759,12 +2745,6 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
   switch (variableName) {
-    case 'Header':
-      return _Header2.default;
-
-    case 'Footer':
-      return _Footer2.default;
-
     case 'React':
       return _react2.default;
 
@@ -2868,7 +2848,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"./Footer":11,"./Header/Header":12,"react":563}],10:[function(require,module,exports){
+},{"react":563}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3358,14 +3338,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.__RewireAPI__ = exports.__ResetDependency__ = exports.__set__ = exports.__Rewire__ = exports.__GetDependency__ = exports.__get__ = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-                                                                                                                                                                                                                                                                               * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                                                                                                                                                                                               *
-                                                                                                                                                                                                                                                                               * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                                                                                                                                                                                               *
-                                                                                                                                                                                                                                                                               * This source code is licensed under the MIT license found in the
-                                                                                                                                                                                                                                                                               * LICENSE.txt file in the root directory of this source tree.
-                                                                                                                                                                                                                                                                               */
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -3393,559 +3368,629 @@ var _Sidebar = require('../Sidebar');
 
 var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
+var _reactRedux = require('react-redux');
+
+var _auth = require('../../actions/auth');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This source code is licensed under the MIT license found in the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * LICENSE.txt file in the root directory of this source tree.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 // const logo = require('./logo.png');
 
-function Header() {
-  var _Navbar_Component = _get__('Navbar');
+var Header = function (_get__$Component) {
+  _inherits(Header, _get__$Component);
 
-  var _Brand_Component = _get__('Brand');
+  function Header() {
+    _classCallCheck(this, Header);
 
-  var _NavDropdown_Component = _get__('NavDropdown');
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+  }
 
-  var _MenuItem_Component = _get__('MenuItem');
+  _createClass(Header, [{
+    key: 'handleLogout',
+    value: function handleLogout(event) {
+      event.preventDefault();
+      this.props.dispatch(_get__('logout')());
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _NavDropdown_Component = _get__('NavDropdown');
 
-  var _MenuItem_Component2 = _get__('MenuItem');
+      var _MenuItem_Component = _get__('MenuItem');
 
-  var _MenuItem_Component3 = _get__('MenuItem');
+      var _MenuItem_Component2 = _get__('MenuItem');
 
-  var _MenuItem_Component4 = _get__('MenuItem');
+      var _MenuItem_Component3 = _get__('MenuItem');
 
-  var _MenuItem_Component5 = _get__('MenuItem');
+      var _MenuItem_Component4 = _get__('MenuItem');
 
-  var _MenuItem_Component6 = _get__('MenuItem');
+      var _MenuItem_Component5 = _get__('MenuItem');
 
-  var _MenuItem_Component7 = _get__('MenuItem');
+      var _MenuItem_Component6 = _get__('MenuItem');
 
-  var _NavDropdown_Component2 = _get__('NavDropdown');
+      var _NavDropdown_Component2 = _get__('NavDropdown');
 
-  var _MenuItem_Component8 = _get__('MenuItem');
+      var _MenuItem_Component7 = _get__('MenuItem');
 
-  var _ProgressBar_Component = _get__('ProgressBar');
+      var _MenuItem_Component8 = _get__('MenuItem');
 
-  var _MenuItem_Component9 = _get__('MenuItem');
-
-  var _MenuItem_Component10 = _get__('MenuItem');
-
-  var _ProgressBar_Component2 = _get__('ProgressBar');
-
-  var _MenuItem_Component11 = _get__('MenuItem');
-
-  var _MenuItem_Component12 = _get__('MenuItem');
-
-  var _ProgressBar_Component3 = _get__('ProgressBar');
-
-  var _MenuItem_Component13 = _get__('MenuItem');
-
-  var _MenuItem_Component14 = _get__('MenuItem');
-
-  var _ProgressBar_Component4 = _get__('ProgressBar');
-
-  var _MenuItem_Component15 = _get__('MenuItem');
-
-  var _MenuItem_Component16 = _get__('MenuItem');
-
-  var _NavDropdown_Component3 = _get__('NavDropdown');
-
-  var _MenuItem_Component17 = _get__('MenuItem');
-
-  var _MenuItem_Component18 = _get__('MenuItem');
-
-  var _MenuItem_Component19 = _get__('MenuItem');
-
-  var _MenuItem_Component20 = _get__('MenuItem');
-
-  var _MenuItem_Component21 = _get__('MenuItem');
-
-  var _MenuItem_Component22 = _get__('MenuItem');
-
-  var _MenuItem_Component23 = _get__('MenuItem');
-
-  var _MenuItem_Component24 = _get__('MenuItem');
-
-  var _MenuItem_Component25 = _get__('MenuItem');
-
-  var _MenuItem_Component26 = _get__('MenuItem');
-
-  var _MenuItem_Component27 = _get__('MenuItem');
-
-  var _NavDropdown_Component4 = _get__('NavDropdown');
-
-  var _MenuItem_Component28 = _get__('MenuItem');
-
-  var _MenuItem_Component29 = _get__('MenuItem');
-
-  var _MenuItem_Component30 = _get__('MenuItem');
-
-  var _MenuItem_Component31 = _get__('MenuItem');
-
-  var _MenuItem_Component32 = _get__('MenuItem');
-
-  var _MenuItem_Component33 = _get__('MenuItem');
-
-  var _Sidebar_Component = _get__('Sidebar');
-
-  return _react2.default.createElement(
-    'div',
-    { id: 'wrapper', className: 'content' },
-    _react2.default.createElement(
-      _Navbar_Component,
-      { fluid: true, style: { margin: 0 } },
-      _react2.default.createElement(
-        _Brand_Component,
-        null,
+      var rightNav = this.props.token ? _react2.default.createElement(
+        _NavDropdown_Component,
+        { title: _react2.default.createElement('i', { className: 'fa fa-user fa-fw' }), id: 'navDropdown4' },
         _react2.default.createElement(
-          'span',
-          null,
-          _react2.default.createElement('img', { src: 'images/logo.png', alt: 'Start React', title: 'Start React' }),
+          _MenuItem_Component,
+          { eventKey: '1' },
           _react2.default.createElement(
             'span',
             null,
-            '\xA0React Project Name '
-          ),
+            ' ',
+            _react2.default.createElement('i', { className: 'fa fa-user fa-fw' }),
+            ' User Profile '
+          )
+        ),
+        _react2.default.createElement(
+          _MenuItem_Component2,
+          { eventKey: '2' },
           _react2.default.createElement(
-            'button',
-            { type: 'button', className: 'navbar-toggle', onClick: function onClick() {
-                _get__('toggleMenu')();
-              }, style: { position: 'absolute', right: 0, top: 0 } },
-            _react2.default.createElement(
-              'span',
-              { className: 'sr-only' },
-              'Toggle navigation'
-            ),
-            _react2.default.createElement('span', { className: 'icon-bar' }),
-            _react2.default.createElement('span', { className: 'icon-bar' }),
-            _react2.default.createElement('span', { className: 'icon-bar' })
+            'span',
+            null,
+            _react2.default.createElement('i', { className: 'fa fa-gear fa-fw' }),
+            ' Settings '
+          )
+        ),
+        _react2.default.createElement(_MenuItem_Component3, { divider: true }),
+        _react2.default.createElement(
+          _MenuItem_Component4,
+          { eventKey: '3', href: 'http://www.strapui.com' },
+          _react2.default.createElement(
+            'span',
+            null,
+            ' ',
+            _react2.default.createElement('i', { className: 'fa fa-eye fa-fw' }),
+            ' Premium React Themes '
+          )
+        ),
+        _react2.default.createElement(_MenuItem_Component5, { divider: true }),
+        _react2.default.createElement(
+          _MenuItem_Component6,
+          { eventKey: '4', onClick: this.handleLogout.bind(this) },
+          _react2.default.createElement(
+            'span',
+            null,
+            ' ',
+            _react2.default.createElement('i', { className: 'fa fa-sign-out fa-fw' }),
+            ' Logout '
           )
         )
-      ),
-      _react2.default.createElement(
-        'ul',
-        { className: 'nav navbar-top-links navbar-right' },
+      ) : _react2.default.createElement(
+        _NavDropdown_Component2,
+        { title: _react2.default.createElement('i', { className: 'fa fa-user fa-fw' }), id: 'navDropdown4' },
         _react2.default.createElement(
-          _NavDropdown_Component,
-          { bsClass: 'dropdown', title: _react2.default.createElement(
-              'span',
-              null,
-              _react2.default.createElement('i', { className: 'fa fa-envelope fa-fw' })
-            ), id: 'navDropdown1' },
+          _MenuItem_Component7,
+          { eventKey: '5', onClick: _get__('history').push('/login') },
           _react2.default.createElement(
-            _MenuItem_Component,
-            { style: { width: 300 }, eventKey: '1' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement(
-                'strong',
-                null,
-                'John Smith'
-              ),
-              ' ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted' },
-                ' ',
-                _react2.default.createElement(
-                  'em',
-                  null,
-                  'Yesterday'
-                ),
-                ' '
-              ),
-              ' '
-            ),
-            _react2.default.createElement(
-              'div',
-              null,
-              ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component2, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component3,
-            { eventKey: '2' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement(
-                'strong',
-                null,
-                'John Smith'
-              ),
-              ' ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted' },
-                ' ',
-                _react2.default.createElement(
-                  'em',
-                  null,
-                  'Yesterday'
-                ),
-                ' '
-              ),
-              ' '
-            ),
-            _react2.default.createElement(
-              'div',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component4, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component5,
-            { eventKey: '3' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement(
-                'strong',
-                null,
-                'John Smith'
-              ),
-              ' ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted' },
-                ' ',
-                _react2.default.createElement(
-                  'em',
-                  null,
-                  'Yesterday'
-                ),
-                ' '
-              ),
-              ' '
-            ),
-            _react2.default.createElement(
-              'div',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component6, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component7,
-            { eventKey: '4', className: 'text-center' },
-            _react2.default.createElement(
-              'strong',
-              null,
-              'Read All Messages'
-            ),
+            'span',
+            null,
             ' ',
-            _react2.default.createElement('i', { className: 'fa fa-angle-right' })
+            _react2.default.createElement('i', { className: 'fa fa-sign-in fa-fw' }),
+            ' Log In '
           )
         ),
         _react2.default.createElement(
-          _NavDropdown_Component2,
-          { title: _react2.default.createElement(
-              'span',
-              null,
-              _react2.default.createElement('i', { className: 'fa fa-tasks fa-fw' }),
-              ' '
-            ), id: 'navDropdown2222' },
+          _MenuItem_Component8,
+          { eventKey: '6', onClick: _get__('history').push('/signup') },
           _react2.default.createElement(
-            _MenuItem_Component8,
-            { eventKey: '1', style: { width: 300 } },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'p',
-                null,
-                ' ',
-                _react2.default.createElement(
-                  'strong',
-                  null,
-                  'Task 1'
-                ),
-                ' ',
-                _react2.default.createElement(
-                  'span',
-                  { className: 'pull-right text-muted' },
-                  '40% Complete'
-                ),
-                ' '
-              ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_ProgressBar_Component, { bsStyle: 'success', now: 40 })
-              )
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component9, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component10,
-            { eventKey: '2' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'p',
-                null,
-                ' ',
-                _react2.default.createElement(
-                  'strong',
-                  null,
-                  'Task 2'
-                ),
-                ' ',
-                _react2.default.createElement(
-                  'span',
-                  { className: 'pull-right text-muted' },
-                  '20% Complete'
-                ),
-                ' '
-              ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_ProgressBar_Component2, { bsStyle: 'info', now: 20 })
-              )
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component11, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component12,
-            { eventKey: '3' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'p',
-                null,
-                ' ',
-                _react2.default.createElement(
-                  'strong',
-                  null,
-                  'Task 3'
-                ),
-                ' ',
-                _react2.default.createElement(
-                  'span',
-                  { className: 'pull-right text-muted' },
-                  '60% Complete'
-                ),
-                ' '
-              ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_ProgressBar_Component3, { bsStyle: 'warning', now: 60 })
-              )
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component13, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component14,
-            { eventKey: '4' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'p',
-                null,
-                ' ',
-                _react2.default.createElement(
-                  'strong',
-                  null,
-                  'Task 4'
-                ),
-                ' ',
-                _react2.default.createElement(
-                  'span',
-                  { className: 'pull-right text-muted' },
-                  '80% Complete'
-                ),
-                ' '
-              ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_ProgressBar_Component4, { bsStyle: 'danger', now: 80 })
-              )
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component15, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component16,
-            { eventKey: '5' },
-            _react2.default.createElement(
-              'strong',
-              null,
-              'See All Tasks'
-            ),
+            'span',
+            null,
             ' ',
-            _react2.default.createElement('i', { className: 'fa fa-angle-right' })
-          )
-        ),
-        _react2.default.createElement(
-          _NavDropdown_Component3,
-          { title: _react2.default.createElement('i', { className: 'fa fa-bell fa-fw' }), id: 'navDropdown3' },
-          _react2.default.createElement(
-            _MenuItem_Component17,
-            { eventKey: '1', style: { width: 300 } },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-comment fa-fw' }),
-              ' New Comment ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted small' },
-                '4 minutes ago'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component18, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component19,
-            { eventKey: '2' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-twitter fa-fw' }),
-              ' 3 New Followers ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted small' },
-                '12 minutes ago'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component20, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component21,
-            { eventKey: '3' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-envelope fa-fw' }),
-              ' Message Sent ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted small' },
-                '4 minutes ago'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component22, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component23,
-            { eventKey: '4' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-tasks fa-fw' }),
-              ' New Task ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted small' },
-                '4 minutes ago'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component24, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component25,
-            { eventKey: '5' },
-            _react2.default.createElement(
-              'div',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-upload fa-fw' }),
-              ' Server Rebooted ',
-              _react2.default.createElement(
-                'span',
-                { className: 'pull-right text-muted small' },
-                '4 minutes ago'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component26, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component27,
-            { eventKey: '6' },
-            _react2.default.createElement(
-              'strong',
-              null,
-              'See All Alerts'
-            ),
-            ' ',
-            _react2.default.createElement('i', { className: 'fa fa-angle-right' })
-          )
-        ),
-        _react2.default.createElement(
-          _NavDropdown_Component4,
-          { title: _react2.default.createElement('i', { className: 'fa fa-user fa-fw' }), id: 'navDropdown4' },
-          _react2.default.createElement(
-            _MenuItem_Component28,
-            { eventKey: '1' },
-            _react2.default.createElement(
-              'span',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-user fa-fw' }),
-              ' User Profile '
-            )
-          ),
-          _react2.default.createElement(
-            _MenuItem_Component29,
-            { eventKey: '2' },
-            _react2.default.createElement(
-              'span',
-              null,
-              _react2.default.createElement('i', { className: 'fa fa-gear fa-fw' }),
-              ' Settings '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component30, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component31,
-            { eventKey: '3', href: 'http://www.strapui.com' },
-            _react2.default.createElement(
-              'span',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-eye fa-fw' }),
-              ' Premium React Themes '
-            )
-          ),
-          _react2.default.createElement(_MenuItem_Component32, { divider: true }),
-          _react2.default.createElement(
-            _MenuItem_Component33,
-            { eventKey: '4', onClick: function onClick(event) {
-                _get__('history').push('/login');
-              } },
-            _react2.default.createElement(
-              'span',
-              null,
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-sign-out fa-fw' }),
-              ' Logout '
-            )
+            _react2.default.createElement('i', { className: 'fa fa-user-plus fa-fw' }),
+            ' Sign Up '
           )
         )
-      ),
-      _react2.default.createElement(_Sidebar_Component, null)
-    )
-  );
-}
+      );
+
+      var _Navbar_Component = _get__('Navbar');
+
+      var _Brand_Component = _get__('Brand');
+
+      var _NavDropdown_Component3 = _get__('NavDropdown');
+
+      var _MenuItem_Component9 = _get__('MenuItem');
+
+      var _MenuItem_Component10 = _get__('MenuItem');
+
+      var _MenuItem_Component11 = _get__('MenuItem');
+
+      var _MenuItem_Component12 = _get__('MenuItem');
+
+      var _MenuItem_Component13 = _get__('MenuItem');
+
+      var _MenuItem_Component14 = _get__('MenuItem');
+
+      var _MenuItem_Component15 = _get__('MenuItem');
+
+      var _NavDropdown_Component4 = _get__('NavDropdown');
+
+      var _MenuItem_Component16 = _get__('MenuItem');
+
+      var _ProgressBar_Component = _get__('ProgressBar');
+
+      var _MenuItem_Component17 = _get__('MenuItem');
+
+      var _MenuItem_Component18 = _get__('MenuItem');
+
+      var _ProgressBar_Component2 = _get__('ProgressBar');
+
+      var _MenuItem_Component19 = _get__('MenuItem');
+
+      var _MenuItem_Component20 = _get__('MenuItem');
+
+      var _ProgressBar_Component3 = _get__('ProgressBar');
+
+      var _MenuItem_Component21 = _get__('MenuItem');
+
+      var _MenuItem_Component22 = _get__('MenuItem');
+
+      var _ProgressBar_Component4 = _get__('ProgressBar');
+
+      var _MenuItem_Component23 = _get__('MenuItem');
+
+      var _MenuItem_Component24 = _get__('MenuItem');
+
+      var _NavDropdown_Component5 = _get__('NavDropdown');
+
+      var _MenuItem_Component25 = _get__('MenuItem');
+
+      var _MenuItem_Component26 = _get__('MenuItem');
+
+      var _MenuItem_Component27 = _get__('MenuItem');
+
+      var _MenuItem_Component28 = _get__('MenuItem');
+
+      var _MenuItem_Component29 = _get__('MenuItem');
+
+      var _MenuItem_Component30 = _get__('MenuItem');
+
+      var _MenuItem_Component31 = _get__('MenuItem');
+
+      var _MenuItem_Component32 = _get__('MenuItem');
+
+      var _MenuItem_Component33 = _get__('MenuItem');
+
+      var _MenuItem_Component34 = _get__('MenuItem');
+
+      var _MenuItem_Component35 = _get__('MenuItem');
+
+      var _Sidebar_Component = _get__('Sidebar');
+
+      return _react2.default.createElement(
+        'div',
+        { id: 'wrapper', className: 'content' },
+        _react2.default.createElement(
+          _Navbar_Component,
+          { fluid: true, style: { margin: 0 } },
+          _react2.default.createElement(
+            _Brand_Component,
+            null,
+            _react2.default.createElement(
+              'span',
+              null,
+              _react2.default.createElement('img', { src: 'images/logo.png', alt: 'Start React', title: 'Start React' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                '\xA0React Project Name '
+              ),
+              _react2.default.createElement(
+                'button',
+                { type: 'button', className: 'navbar-toggle', onClick: function onClick() {
+                    _get__('toggleMenu')();
+                  }, style: { position: 'absolute', right: 0, top: 0 } },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'sr-only' },
+                  'Toggle navigation'
+                ),
+                _react2.default.createElement('span', { className: 'icon-bar' }),
+                _react2.default.createElement('span', { className: 'icon-bar' }),
+                _react2.default.createElement('span', { className: 'icon-bar' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'nav navbar-top-links navbar-right' },
+            _react2.default.createElement(
+              _NavDropdown_Component3,
+              { bsClass: 'dropdown', title: _react2.default.createElement(
+                  'span',
+                  null,
+                  _react2.default.createElement('i', { className: 'fa fa-envelope fa-fw' })
+                ), id: 'navDropdown1' },
+              _react2.default.createElement(
+                _MenuItem_Component9,
+                { style: { width: 300 }, eventKey: '1' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    'John Smith'
+                  ),
+                  ' ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted' },
+                    ' ',
+                    _react2.default.createElement(
+                      'em',
+                      null,
+                      'Yesterday'
+                    ),
+                    ' '
+                  ),
+                  ' '
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component10, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component11,
+                { eventKey: '2' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    'John Smith'
+                  ),
+                  ' ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted' },
+                    ' ',
+                    _react2.default.createElement(
+                      'em',
+                      null,
+                      'Yesterday'
+                    ),
+                    ' '
+                  ),
+                  ' '
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component12, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component13,
+                { eventKey: '3' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    'John Smith'
+                  ),
+                  ' ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted' },
+                    ' ',
+                    _react2.default.createElement(
+                      'em',
+                      null,
+                      'Yesterday'
+                    ),
+                    ' '
+                  ),
+                  ' '
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...'
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component14, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component15,
+                { eventKey: '4', className: 'text-center' },
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  'Read All Messages'
+                ),
+                ' ',
+                _react2.default.createElement('i', { className: 'fa fa-angle-right' })
+              )
+            ),
+            _react2.default.createElement(
+              _NavDropdown_Component4,
+              { title: _react2.default.createElement(
+                  'span',
+                  null,
+                  _react2.default.createElement('i', { className: 'fa fa-tasks fa-fw' }),
+                  ' '
+                ), id: 'navDropdown2222' },
+              _react2.default.createElement(
+                _MenuItem_Component16,
+                { eventKey: '1', style: { width: 300 } },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    ' ',
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      'Task 1'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'pull-right text-muted' },
+                      '40% Complete'
+                    ),
+                    ' '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_ProgressBar_Component, { bsStyle: 'success', now: 40 })
+                  )
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component17, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component18,
+                { eventKey: '2' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    ' ',
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      'Task 2'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'pull-right text-muted' },
+                      '20% Complete'
+                    ),
+                    ' '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_ProgressBar_Component2, { bsStyle: 'info', now: 20 })
+                  )
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component19, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component20,
+                { eventKey: '3' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    ' ',
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      'Task 3'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'pull-right text-muted' },
+                      '60% Complete'
+                    ),
+                    ' '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_ProgressBar_Component3, { bsStyle: 'warning', now: 60 })
+                  )
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component21, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component22,
+                { eventKey: '4' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    ' ',
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      'Task 4'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'pull-right text-muted' },
+                      '80% Complete'
+                    ),
+                    ' '
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_ProgressBar_Component4, { bsStyle: 'danger', now: 80 })
+                  )
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component23, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component24,
+                { eventKey: '5' },
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  'See All Tasks'
+                ),
+                ' ',
+                _react2.default.createElement('i', { className: 'fa fa-angle-right' })
+              )
+            ),
+            _react2.default.createElement(
+              _NavDropdown_Component5,
+              { title: _react2.default.createElement('i', { className: 'fa fa-bell fa-fw' }), id: 'navDropdown3' },
+              _react2.default.createElement(
+                _MenuItem_Component25,
+                { eventKey: '1', style: { width: 300 } },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement('i', { className: 'fa fa-comment fa-fw' }),
+                  ' New Comment ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted small' },
+                    '4 minutes ago'
+                  ),
+                  ' '
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component26, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component27,
+                { eventKey: '2' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement('i', { className: 'fa fa-twitter fa-fw' }),
+                  ' 3 New Followers ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted small' },
+                    '12 minutes ago'
+                  ),
+                  ' '
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component28, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component29,
+                { eventKey: '3' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement('i', { className: 'fa fa-envelope fa-fw' }),
+                  ' Message Sent ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted small' },
+                    '4 minutes ago'
+                  ),
+                  ' '
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component30, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component31,
+                { eventKey: '4' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement('i', { className: 'fa fa-tasks fa-fw' }),
+                  ' New Task ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted small' },
+                    '4 minutes ago'
+                  ),
+                  ' '
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component32, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component33,
+                { eventKey: '5' },
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  ' ',
+                  _react2.default.createElement('i', { className: 'fa fa-upload fa-fw' }),
+                  ' Server Rebooted ',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'pull-right text-muted small' },
+                    '4 minutes ago'
+                  ),
+                  ' '
+                )
+              ),
+              _react2.default.createElement(_MenuItem_Component34, { divider: true }),
+              _react2.default.createElement(
+                _MenuItem_Component35,
+                { eventKey: '6' },
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  'See All Alerts'
+                ),
+                ' ',
+                _react2.default.createElement('i', { className: 'fa fa-angle-right' })
+              )
+            ),
+            rightNav
+          ),
+          _react2.default.createElement(_Sidebar_Component, null)
+        )
+      );
+    }
+  }]);
+
+  return Header;
+}(_get__('React').Component);
+
 function toggleMenu() {
   if (_get__('$')(".navbar-collapse").hasClass('collapse')) {
     _get__('$')(".navbar-collapse").removeClass('collapse');
@@ -3954,7 +3999,18 @@ function toggleMenu() {
   }
 }
 
-exports.default = _get__('Header');
+// export default Header;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    user: state.auth.user
+  };
+};
+
+var _DefaultExportValue = _get__('connect')(_get__('mapStateToProps'))(_get__('Header'));
+
+exports.default = _DefaultExportValue;
 var _RewiredData__ = {};
 var _RewireAPI__ = {};
 
@@ -3982,6 +4038,18 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
   switch (variableName) {
+    case 'logout':
+      return _auth.logout;
+
+    case 'NavDropdown':
+      return _reactBootstrap.NavDropdown;
+
+    case 'MenuItem':
+      return _reactBootstrap.MenuItem;
+
+    case 'history':
+      return _history2.default;
+
     case 'Navbar':
       return _Navbar2.default;
 
@@ -3991,23 +4059,23 @@ function _get_original__(variableName) {
     case 'toggleMenu':
       return toggleMenu;
 
-    case 'NavDropdown':
-      return _reactBootstrap.NavDropdown;
-
-    case 'MenuItem':
-      return _reactBootstrap.MenuItem;
-
     case 'ProgressBar':
       return _reactBootstrap.ProgressBar;
-
-    case 'history':
-      return _history2.default;
 
     case 'Sidebar':
       return _Sidebar2.default;
 
+    case 'React':
+      return _react2.default;
+
     case '$':
       return _jquery2.default;
+
+    case 'connect':
+      return _reactRedux.connect;
+
+    case 'mapStateToProps':
+      return mapStateToProps;
 
     case 'Header':
       return Header;
@@ -4081,17 +4149,17 @@ function _with__(object) {
   };
 }
 
-var _typeOfOriginalExport = typeof Header === 'undefined' ? 'undefined' : _typeof(Header);
+var _typeOfOriginalExport = typeof _DefaultExportValue === 'undefined' ? 'undefined' : _typeof(_DefaultExportValue);
 
 function addNonEnumerableProperty(name, value) {
-  Object.defineProperty(Header, name, {
+  Object.defineProperty(_DefaultExportValue, name, {
     value: value,
     enumerable: false,
     configurable: true
   });
 }
 
-if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(Header)) {
+if ((_typeOfOriginalExport === 'object' || _typeOfOriginalExport === 'function') && Object.isExtensible(_DefaultExportValue)) {
   addNonEnumerableProperty('__get__', _get__);
   addNonEnumerableProperty('__GetDependency__', _get__);
   addNonEnumerableProperty('__Rewire__', _set__);
@@ -4109,7 +4177,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"../Sidebar":16,"history":207,"isomorphic-style-loader/lib/withStyles":215,"jquery":216,"react":563,"react-bootstrap":332,"react-bootstrap/lib/Navbar":300}],13:[function(require,module,exports){
+},{"../../actions/auth":1,"../Sidebar":16,"history":207,"isomorphic-style-loader/lib/withStyles":215,"jquery":216,"react":563,"react-bootstrap":332,"react-bootstrap/lib/Navbar":300,"react-redux":366}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4131,6 +4199,14 @@ var _Messages = require('./Messages');
 
 var _Messages2 = _interopRequireDefault(_Messages);
 
+var _Header = require('./Header/Header');
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _Footer = require('./Footer');
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4151,96 +4227,106 @@ var Home = function (_get__$Component) {
   _createClass(Home, [{
     key: 'render',
     value: function render() {
+      var _Header_Component = _get__('Header');
+
       var _Messages_Component = _get__('Messages');
+
+      var _Footer_Component = _get__('Footer');
 
       return _react2.default.createElement(
         'div',
-        { className: 'container-fluid' },
-        _react2.default.createElement(_Messages_Component, { messages: this.props.messages }),
+        null,
+        _react2.default.createElement(_Header_Component, null),
         _react2.default.createElement(
           'div',
-          { className: 'row' },
+          { id: 'page-wrapper', className: 'page-wrapper' },
+          _react2.default.createElement(_Messages_Component, { messages: this.props.messages }),
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-4' },
+            { className: 'row' },
             _react2.default.createElement(
               'div',
-              { className: 'panel' },
+              { className: 'col-sm-4' },
               _react2.default.createElement(
                 'div',
-                { className: 'panel-body' },
+                { className: 'panel' },
                 _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Heading'
-                ),
+                  'div',
+                  { className: 'panel-body' },
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Heading'
+                  ),
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
+                  ),
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#', role: 'button', className: 'btn btn-default' },
+                    'View details'
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-4' },
+              _react2.default.createElement(
+                'div',
+                { className: 'panel' },
                 _react2.default.createElement(
-                  'p',
-                  null,
-                  'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
-                ),
+                  'div',
+                  { className: 'panel-body' },
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Heading'
+                  ),
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
+                  ),
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#', role: 'button', className: 'btn btn-default' },
+                    'View details'
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-sm-4' },
+              _react2.default.createElement(
+                'div',
+                { className: 'panel' },
                 _react2.default.createElement(
-                  'a',
-                  { href: '#', role: 'button', className: 'btn btn-default' },
-                  'View details'
+                  'div',
+                  { className: 'panel-body' },
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Heading'
+                  ),
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
+                  ),
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#', role: 'button', className: 'btn btn-default' },
+                    'View details'
+                  )
                 )
               )
             )
           ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col-sm-4' },
-            _react2.default.createElement(
-              'div',
-              { className: 'panel' },
-              _react2.default.createElement(
-                'div',
-                { className: 'panel-body' },
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Heading'
-                ),
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', role: 'button', className: 'btn btn-default' },
-                  'View details'
-                )
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col-sm-4' },
-            _react2.default.createElement(
-              'div',
-              { className: 'panel' },
-              _react2.default.createElement(
-                'div',
-                { className: 'panel-body' },
-                _react2.default.createElement(
-                  'h3',
-                  null,
-                  'Heading'
-                ),
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  'Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.'
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', role: 'button', className: 'btn btn-default' },
-                  'View details'
-                )
-              )
-            )
-          )
+          _react2.default.createElement(_Footer_Component, null)
         )
       );
     }
@@ -4285,8 +4371,14 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
   switch (variableName) {
+    case 'Header':
+      return _Header2.default;
+
     case 'Messages':
       return _Messages2.default;
+
+    case 'Footer':
+      return _Footer2.default;
 
     case 'React':
       return _react2.default;
@@ -4397,7 +4489,7 @@ exports.__set__ = _set__;
 exports.__ResetDependency__ = _reset__;
 exports.__RewireAPI__ = _RewireAPI__;
 
-},{"./Messages":14,"react":563,"react-redux":366}],14:[function(require,module,exports){
+},{"./Footer":11,"./Header/Header":12,"./Messages":14,"react":563,"react-redux":366}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4850,7 +4942,7 @@ var Sidebar = function (_get__2) {
               _react2.default.createElement(
                 'a',
                 { href: '', onClick: function onClick(e) {
-                    e.preventDefault();_get__('history').push('/');
+                    e.preventDefault();
                   } },
                 _react2.default.createElement('i', { className: 'fa fa-dashboard fa-fw' }),
                 ' \xA0Dashboard'
@@ -4886,8 +4978,8 @@ var Sidebar = function (_get__2) {
                   null,
                   _react2.default.createElement(
                     'a',
-                    { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/flotcharts');
+                    { href: '#', onClick: function onClick(e) {
+                        e.preventDefault();
                       } },
                     'FlotCharts'
                   )
@@ -4898,9 +4990,9 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     {
-                      href: '',
+                      href: '#',
                       onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/morrisjscharts');
+                        e.preventDefault();
                       }
                     },
                     'Morrisjs Charts'
@@ -4914,7 +5006,7 @@ var Sidebar = function (_get__2) {
               _react2.default.createElement(
                 'a',
                 { href: '', onClick: function onClick(e) {
-                    e.preventDefault();_get__('history').push('/table');
+                    e.preventDefault();
                   } },
                 _react2.default.createElement('i', { className: 'fa fa-table fa-fw' }),
                 ' \xA0Tables'
@@ -4926,7 +5018,7 @@ var Sidebar = function (_get__2) {
               _react2.default.createElement(
                 'a',
                 { href: '', onClick: function onClick(e) {
-                    e.preventDefault();_get__('history').push('/forms');
+                    e.preventDefault();
                   } },
                 _react2.default.createElement('i', { className: 'fa fa-table fa-fw' }),
                 ' \xA0Forms'
@@ -4963,7 +5055,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/panelwells');
+                        e.preventDefault();
                       } },
                     'Panels And Wells'
                   )
@@ -4974,7 +5066,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/button');
+                        e.preventDefault();
                       } },
                     'Buttons'
                   )
@@ -4987,7 +5079,7 @@ var Sidebar = function (_get__2) {
                     {
                       href: '',
                       onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/notification');
+                        e.preventDefault();
                       }
                     },
                     'Notification'
@@ -4999,7 +5091,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/typography');
+                        e.preventDefault();
                       } },
                     'Typography'
                   )
@@ -5010,7 +5102,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/icons');
+                        e.preventDefault();
                       } },
                     'Icons'
                   )
@@ -5021,7 +5113,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/grid');
+                        e.preventDefault();
                       } },
                     'Grid'
                   )
@@ -5183,7 +5275,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/blank');
+                        e.preventDefault();
                       } },
                     'Blank'
                   )
@@ -5194,7 +5286,7 @@ var Sidebar = function (_get__2) {
                   _react2.default.createElement(
                     'a',
                     { href: '', onClick: function onClick(e) {
-                        e.preventDefault();_get__('history').push('/login');
+                        e.preventDefault();
                       } },
                     'Login'
                   )
@@ -5247,9 +5339,6 @@ function _get__(variableName) {
 
 function _get_original__(variableName) {
   switch (variableName) {
-    case 'history':
-      return _history2.default;
-
     case 'classNames':
       return _classnames2.default;
 
