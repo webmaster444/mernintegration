@@ -6,10 +6,15 @@ import Footer from './Footer';
 
 class Home extends React.Component {
   render() {
+
+    let sidebarshown = 'page-wrapper';
+    if(this.props.token)
+      sidebarshown = 'page-wrapper sidebarshown';    
+
     return (      
       <div>      
       <Header />
-      <div id="page-wrapper" className="page-wrapper">
+      <div id="page-wrapper" className={sidebarshown} >
         <Messages messages={this.props.messages}/>
         <div className="row">
           <div className="col-sm-4">
@@ -55,7 +60,9 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    token: state.auth.token,
+    user: state.auth.user
   };
 };
 

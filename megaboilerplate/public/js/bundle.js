@@ -3407,6 +3407,14 @@ var Header = function (_get__$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var isLoggedIn = this.props.token;
+      var sidebarShow = '';
+      if (isLoggedIn) {
+        var _Sidebar_Component2 = _get__('Sidebar');
+
+        sidebarShow = _react2.default.createElement(_Sidebar_Component2, null);
+      }
+
       var _NavDropdown_Component = _get__('NavDropdown');
 
       var _MenuItem_Component = _get__('MenuItem');
@@ -3573,8 +3581,6 @@ var Header = function (_get__$Component) {
       var _MenuItem_Component34 = _get__('MenuItem');
 
       var _MenuItem_Component35 = _get__('MenuItem');
-
-      var _Sidebar_Component = _get__('Sidebar');
 
       return _react2.default.createElement(
         'div',
@@ -3982,7 +3988,7 @@ var Header = function (_get__$Component) {
             ),
             rightNav
           ),
-          _react2.default.createElement(_Sidebar_Component, null)
+          sidebarShow
         )
       );
     }
@@ -3998,8 +4004,6 @@ function toggleMenu() {
     _get__('$')(".navbar-collapse").addClass('collapse');
   }
 }
-
-// export default Header;
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -4041,6 +4045,9 @@ function _get_original__(variableName) {
     case 'logout':
       return _auth.logout;
 
+    case 'Sidebar':
+      return _Sidebar2.default;
+
     case 'NavDropdown':
       return _reactBootstrap.NavDropdown;
 
@@ -4058,9 +4065,6 @@ function _get_original__(variableName) {
 
     case 'ProgressBar':
       return _reactBootstrap.ProgressBar;
-
-    case 'Sidebar':
-      return _Sidebar2.default;
 
     case 'React':
       return _react2.default;
@@ -4224,6 +4228,10 @@ var Home = function (_get__$Component) {
   _createClass(Home, [{
     key: 'render',
     value: function render() {
+
+      var sidebarshown = 'page-wrapper';
+      if (this.props.token) sidebarshown = 'page-wrapper sidebarshown';
+
       var _Header_Component = _get__('Header');
 
       var _Messages_Component = _get__('Messages');
@@ -4236,7 +4244,7 @@ var Home = function (_get__$Component) {
         _react2.default.createElement(_Header_Component, null),
         _react2.default.createElement(
           'div',
-          { id: 'page-wrapper', className: 'page-wrapper' },
+          { id: 'page-wrapper', className: sidebarshown },
           _react2.default.createElement(_Messages_Component, { messages: this.props.messages }),
           _react2.default.createElement(
             'div',
@@ -4334,7 +4342,9 @@ var Home = function (_get__$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    messages: state.messages
+    messages: state.messages,
+    token: state.auth.token,
+    user: state.auth.user
   };
 };
 

@@ -31,6 +31,12 @@ class Header extends React.Component{
     this.props.dispatch(logout());
   }
   render() {
+    const isLoggedIn = this.props.token;
+    let sidebarShow = '';
+    if(isLoggedIn){
+      sidebarShow = <Sidebar />
+    }    
+
     const rightNav = this.props.token ? (
       <NavDropdown title={<i className="fa fa-user fa-fw"></i> } id = 'navDropdown4'>
       <MenuItem eventKey="1">
@@ -168,8 +174,8 @@ class Header extends React.Component{
                   {rightNav}
             
 
-          </ul>
-          <Sidebar />
+          </ul>   
+          {sidebarShow}
     </Navbar>
     </div>
   );}
@@ -182,8 +188,6 @@ function toggleMenu(){
       $(".navbar-collapse").addClass('collapse');
     }
   }
-
-// export default Header;
 
 const mapStateToProps = (state) => {
   return {
